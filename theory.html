@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eigenvalues & Eigenvectors - Linear Algebra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0f2fe, #fdf2f8);
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .sidebar-content {
+            padding: 24px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .sidebar-logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(90deg, #6366f1, #06b6d4);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .sidebar-title h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .sidebar-title p {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            background: transparent;
+            text-align: left;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .nav-item:hover {
+            background: #f3f4f6;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, #6366f1, #06b6d4);
+            color: white;
+            font-weight: 500;
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+        }
+
+        .nav-item.active .nav-icon {
+            opacity: 1;
+        }
+
+        /* MAIN CONTENT */
+        .main {
+            margin-left: 260px;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(90deg, #6366f1, #06b6d4);
+            padding: 48px 24px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* CONTENT */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        .section {
+            margin-bottom: 64px;
+            scroll-margin-top: 24px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #4f46e5;
+            margin-bottom: 24px;
+        }
+
+        .section-content {
+            line-height: 1.7;
+        }
+
+        .section-content p {
+            margin-bottom: 16px;
+        }
+
+        /* CARDS */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin: 16px 0;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #22d3ee, #ec4899);
+        }
+
+        /* DEFINITION BOX */
+        .definition-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .definition-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #22d3ee, #ec4899);
+        }
+
+        .definition-label {
+            display: inline-block;
+            background: linear-gradient(90deg, #6366f1, #06b6d4);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 20px;
+            margin-right: 8px;
+        }
+
+        .definition-term {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        /* FORMULA BOX */
+        .formula-box {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .formula-box.highlight {
+            border-left: 4px solid;
+            border-image: linear-gradient(180deg, #6366f1, #06b6d4) 1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .formula-box.theorem {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .formula-box.theorem::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #22d3ee, #ec4899);
+        }
+
+        .formula-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4f46e5;
+            margin-bottom: 8px;
+        }
+
+        /* COLLAPSIBLE */
+        .collapsible {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .collapsible::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #22d3ee, #ec4899);
+        }
+
+        .collapsible-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1f2937;
+            text-align: left;
+            transition: background 0.2s;
+        }
+
+        .collapsible-header:hover {
+            background: #f9fafb;
+        }
+
+        .collapsible-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible.open .collapsible-icon {
+            transform: rotate(90deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .collapsible.open .collapsible-content {
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        .collapsible-body {
+            padding: 0 16px 16px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 16px;
+        }
+
+        /* GRID */
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .formula-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .formula-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+
+        .formula-card-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4f46e5;
+            margin-bottom: 8px;
+        }
+
+        .formula-card-content {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        /* LISTS */
+        .styled-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .styled-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: rgba(31, 41, 55, 0.8);
+        }
+
+        .styled-list li::before {
+            content: "•";
+            position: absolute;
+            left: 8px;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+
+        .numbered-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: item;
+        }
+
+        .numbered-list li {
+            padding: 12px 0;
+            padding-left: 36px;
+            position: relative;
+            counter-increment: item;
+        }
+
+        .numbered-list li::before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(90deg, #6366f1, #06b6d4);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* NOTE BOX */
+        .note-box {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .note-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #22d3ee, #ec4899);
+        }
+
+        .note-title {
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .note-content {
+            color: rgba(31, 41, 55, 0.8);
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 32px;
+            color: #6b7280;
+            font-size: 14px;
+            border-top: 1px solid #e5e7eb;
+            background: white;
+        }
+
+        /* MOBILE STYLES */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #6366f1, #06b6d4);
+            padding: 12px 16px;
+            z-index: 200;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .mobile-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-logo {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .mobile-title {
+            color: white;
+            font-weight: 600;
+        }
+
+        .menu-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.98);
+            z-index: 150;
+            padding-top: 64px;
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+        .mobile-nav {
+            padding: 16px;
+        }
+
+        .mobile-nav-item {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            text-align: left;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .mobile-nav-item:hover {
+            background: #f3f4f6;
+        }
+
+        .mobile-nav-item.active {
+            background: linear-gradient(90deg, #6366f1, #06b6d4);
+            color: white;
+            font-weight: 500;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .mobile-header {
+                display: block;
+            }
+
+            .header {
+                padding-top: 80px;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+        }
+        /* ===== HEADER BASE ===== */
+            header {
+                background: linear-gradient(180deg, #2b3a4a, #253444);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                width: 100%;
+            }
+
+/* ===== CONTAINER ===== */
+            .header-container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 14px 36px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+/* ===== LEFT LOGO SECTION ===== */
+            .logo-section {
+                display: flex;
+                align-items: center;
+                gap: 28px;
+                position: relative;
+            }
+
+/* ===== PCOE LOGO ===== */
+            .pcce-logo-container {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+            
+            .pcce-logo-img {
+                width: 52px;
+                height: 52px;
+                object-fit: contain;
+                background: #ffffff;
+                padding: 6px;
+                border-radius: 10px;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            }
+
+/* TEXT BESIDE PCOE LOGO */
+            .pcce-logo-text .main {
+                font-size: 14px;
+                font-weight: 600;
+                color: #f1f5f9;
+                letter-spacing: 0.3px;
+            }
+
+            .pcce-logo-text .sub {
+                font-size: 12px;
+                font-weight: 400;
+                color: #cbd5e1;
+                margin-top: 2px;
+            }
+
+/* ===== DIVIDER LINE ===== */
+            .logo-section::after {
+                content: "";
+                height: 36px;
+                width: 1px;
+                background: rgba(255, 255, 255, 0.18);
+                margin-left: 20px;
+            }
+
+/* ===== VIRTUAL LABS LOGO ===== */
+            .virtual-labs-logo {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: #f1f5f9;
+            }
+
+            .virtual-labs-logo i {
+                font-size: 26px;
+                color: #38bdf8;
+            }
+
+            .virtual-labs-logo h1 {
+                font-size: 20px;
+                font-weight: 600;
+            }            
+
+            .virtual-labs-logo h1 span {
+                color: #38bdf8;
+            }
+
+            /* ===== USER INFO ===== */
+            .user-info {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+                color: #e2e8f0;
+            }
+
+            .user-info i {
+                font-size: 20px;
+                color: #38bdf8;
+            }
+
+            /* ===== RESPONSIVE ===== */
+            @media (max-width: 900px) {
+                .pcce-logo-text {
+                    display: none;
+                }
+            }
+
+            @media (max-width: 600px) {
+                .virtual-labs-logo h1 {
+                    font-size: 18px;
+                }
+            
+                .user-info span {
+                    display: none;
+                }
+            }
+            .back-btn {
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              padding: 10px 18px;
+              margin-bottom: 25px;
+              text-decoration: none;
+              font-size: 14px;
+              font-weight: 600;
+              color: #ffffff;
+              background: linear-gradient(135deg, #0ea5a4, #6366f1);
+              border-radius: 30px;
+              box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+              transition: all 0.3s ease;
+            }
+
+            .back-btn i {
+              font-size: 14px;
+            }
+
+            .back-btn:hover {
+              transform: translateX(-4px);
+              box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+            }
+
+
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="mobile-header-content">
+            <div class="mobile-header-left">
+                <div class="mobile-logo">λ</div>
+                <span class="mobile-title">Eigentheory</span>
+            </div>
+            <button class="menu-btn" onclick="toggleMobileMenu()">
+                <svg id="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+                <svg id="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-nav">
+            <button class="mobile-nav-item active" onclick="scrollToSection('introduction')">Introduction</button>
+            <button class="mobile-nav-item" onclick="scrollToSection('eigenvalues')">Eigenvalues</button>
+            <button class="mobile-nav-item" onclick="scrollToSection('eigenvectors')">Eigenvectors</button>
+            <button class="mobile-nav-item" onclick="scrollToSection('characteristic-equation')">Characteristic Equation</button>
+            <button class="mobile-nav-item" onclick="scrollToSection('finding-eigen')">Finding Eigen-pairs</button>
+            <button class="mobile-nav-item" onclick="scrollToSection('properties')">Properties & Theorems</button>
+            <button class="mobile-nav-item" onclick="scrollToSection('formulas')">Key Formulas</button>
+        </nav>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">λ</div>
+                <div class="sidebar-title">
+                    <h2>Linear Algebra</h2>
+                    <p>Eigentheory</p>
+                </div>
+            </div>
+
+            <p class="nav-label">Contents</p>
+            <nav class="nav-list">
+                <button class="nav-item active" onclick="scrollToSection('introduction')">
+                    <span class="nav-icon">📖</span> Introduction
+                </button>
+                <button class="nav-item" onclick="scrollToSection('eigenvalues')">
+                    <span class="nav-icon">∑</span> Eigenvalues
+                </button>
+                <button class="nav-item" onclick="scrollToSection('eigenvectors')">
+                    <span class="nav-icon">ƒ</span> Eigenvectors
+                </button>
+                <button class="nav-item" onclick="scrollToSection('characteristic-equation')">
+                    <span class="nav-icon">▦</span> Characteristic Equation
+                </button>
+                <button class="nav-item" onclick="scrollToSection('finding-eigen')">
+                    <span class="nav-icon">✓</span> Finding Eigen-pairs
+                </button>
+                <button class="nav-item" onclick="scrollToSection('properties')">
+                    <span class="nav-icon">📄</span> Properties & Theorems
+                </button>
+                <button class="nav-item" onclick="scrollToSection('formulas')">
+                    <span class="nav-icon">∑</span> Key Formulas
+                </button>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Header -->
+<header>
+    <div class="header-container">
+
+        <!-- LEFT SIDE -->
+        <div class="logo-section">
+
+            <!-- PCOE LOGO + TEXT -->
+            <div class="pcce-logo-container">
+                <img
+                    src="https://raw.githubusercontent.com/dineshkute90/virtual_lab_LAUC/main/pccoe.png"
+                    alt="PCOE Logo"
+                    class="pcce-logo-img"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60/2c3e50/ffffff?text=PCOE';"
+                />
+
+                <div class="pcce-logo-text">
+                    <div class="main">APPLIED SCIENCES & HUMANITIES</div>
+                    <div class="sub">Pimpri Chinchwad College of Engineering</div>
+                </div>
+            </div>
+
+            <!-- VIRTUAL LABS BRAND -->
+            <div class="virtual-labs-logo">
+                <i class="fas fa-flask"></i>
+                <h1>Virtual <span>Labs</span></h1>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE USER INFO -->
+        <div class="user-info">
+            <i class="fas fa-user-circle"></i>
+            <span>Welcome, Student</span>
+        </div>
+
+    </div>
+</header>
+
+
+        <!-- Content -->
+        <div class="content">
+            <a href="laucp.html" class="back-btn">
+  <i class="fas fa-arrow-left"></i> Back
+</a>
+
+            <!-- Introduction -->
+            <section class="section" id="introduction">
+                <h2 class="section-title">📘Eigen Value & Eigen Vector</h2>
+                <div class="section-content">
+                    <p>Eigenvalues and eigenvectors are among the most important concepts in linear algebra. They provide deep insights into the behavior of linear transformations and matrices, revealing the directions along which a transformation acts by simple scaling.</p>
+                    <p>The word "eigen" comes from German, meaning "own" or "characteristic." An eigenvector of a matrix is a non-zero vector that, when the matrix is applied to it, only changes in scale (magnitude) but not in direction.</p>
+                    
+                    <div class="collapsible">
+                        <button class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <span>Why are eigenvalues important?</span>
+                            <span class="collapsible-icon">▶</span>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-body">
+                                <ul class="styled-list">
+                                    <li><strong>Physics:</strong> Vibration analysis, quantum mechanics, and stability analysis</li>
+                                    <li><strong>Data Science:</strong> Principal Component Analysis (PCA) for dimensionality reduction</li>
+                                    <li><strong>Engineering:</strong> Structural analysis and control systems</li>
+                                    <li><strong>Computer Graphics:</strong> Image compression and face recognition</li>
+                                    <li><strong>Google PageRank:</strong> Ranking web pages using the dominant eigenvector</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Eigenvalues -->
+            <section class="section" id="eigenvalues">
+                <h2 class="section-title">📘 What are Eigenvalues?</h2>
+                <div class="section-content">
+                    <div class="definition-box">
+                        <p class="definition-term">
+                            <span class="definition-label">DEF</span>
+                            Eigenvalue
+                        </p>
+                        <p>A scalar <strong>λ</strong> (lambda) is called an <em>eigenvalue</em> of a square matrix <strong>A</strong> if there exists a non-zero vector <strong>v</strong> such that:</p>
+                        <div class="formula-box highlight">Av = λv</div>
+                    </div>
+
+                    <p>In simpler terms, an eigenvalue is a special number associated with a matrix. When you multiply the matrix by its eigenvector, the result is the same as multiplying the eigenvector by this eigenvalue.</p>
+
+                    <div class="collapsible">
+                        <button class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <span>Intuitive Understanding</span>
+                            <span class="collapsible-icon">▶</span>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-body">
+                                <p style="margin-bottom: 16px;">Think of a matrix as a transformation that stretches, rotates, or reflects vectors. An eigenvalue tells you <em>how much</em> a vector is stretched (or shrunk) along a particular direction.</p>
+                                <ul class="styled-list">
+                                    <li><strong>λ > 1:</strong> The vector is stretched</li>
+                                    <li><strong>0 < λ < 1:</strong> The vector is compressed</li>
+                                    <li><strong>λ = 1:</strong> The vector length is unchanged</li>
+                                    <li><strong>λ < 0:</strong> The vector is flipped and scaled</li>
+                                    <li><strong>λ = 0:</strong> The vector is collapsed to the origin</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Eigenvectors -->
+            <section class="section" id="eigenvectors">
+                <h2 class="section-title">📘 What are Eigenvectors?</h2>
+                <div class="section-content">
+                    <div class="definition-box">
+                        <p class="definition-term">
+                            <span class="definition-label">DEF</span>
+                            Eigenvector
+                        </p>
+                        <p>A non-zero vector <strong>v</strong> is called an <em>eigenvector</em> of matrix <strong>A</strong> corresponding to eigenvalue <strong>λ</strong> if:</p>
+                        <div class="formula-box highlight">Av = λv</div>
+                    </div>
+
+                    <p>An eigenvector is a special direction in which the linear transformation represented by the matrix acts by pure scaling. The vector may get longer, shorter, or flip direction, but it stays on the same line through the origin.</p>
+
+                    <div class="note-box">
+                        <p class="note-title">📝 Important Note</p>
+                        <p class="note-content">If <strong>v</strong> is an eigenvector, then any non-zero scalar multiple of <strong>v</strong> (like 2v, -3v, 0.5v) is also an eigenvector with the same eigenvalue. We often normalize eigenvectors to have unit length.</p>
+                    </div>
+
+                    <div class="collapsible">
+                        <button class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <span>Example: 2×2 Matrix</span>
+                            <span class="collapsible-icon">▶</span>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-body">
+                                <p style="margin-bottom: 12px;">Consider the matrix:</p>
+                                <div class="formula-box">A = [2, 1; 1, 2]</div>
+                                <p style="margin-bottom: 8px;">This matrix has eigenvectors <strong>v₁ = [1, 1]</strong> with eigenvalue <strong>λ₁ = 3</strong>, and <strong>v₂ = [1, -1]</strong> with eigenvalue <strong>λ₂ = 1</strong>.</p>
+                                <p style="color: #6b7280; font-size: 14px;">You can verify: A × [1, 1]ᵀ = [3, 3]ᵀ = 3 × [1, 1]ᵀ ✓</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Characteristic Equation -->
+            <section class="section" id="characteristic-equation">
+                <h2 class="section-title">📘 The Characteristic Equation</h2>
+                <div class="section-content">
+                    <p>To find eigenvalues, we use the <strong>characteristic equation</strong>. This is derived from the fundamental eigenvalue equation by rearranging terms.</p>
+
+                    <div style="margin: 24px 0;">
+                        <p style="color: #6b7280; margin-bottom: 8px;">Starting from Av = λv:</p>
+                        <div class="formula-box">Av - λv = 0</div>
+                        <div class="formula-box">Av - λIv = 0</div>
+                        <div class="formula-box">(A - λI)v = 0</div>
+                    </div>
+
+                    <p>For a non-zero solution v to exist, the matrix (A - λI) must be singular, meaning its determinant must be zero:</p>
+
+                    <div class="formula-box theorem">
+                        <p class="formula-title">Characteristic Equation</p>
+                        det(A - λI) = 0
+                    </div>
+
+                    <div class="definition-box">
+                        <p class="definition-term">
+                            <span class="definition-label">DEF</span>
+                            Characteristic Polynomial
+                        </p>
+                        <p>The polynomial <strong>p(λ) = det(A - λI)</strong> is called the <em>characteristic polynomial</em> of matrix A. For an n×n matrix, this is a polynomial of degree n, and its roots are the eigenvalues.</p>
+                    </div>
+
+                    <div class="collapsible">
+                        <button class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <span>Example: Finding Eigenvalues</span>
+                            <span class="collapsible-icon">▶</span>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-body">
+                                <p style="margin-bottom: 12px;">For the matrix A = [4, 2; 1, 3]:</p>
+                                <div class="formula-box">A - λI = [4-λ, 2; 1, 3-λ]</div>
+                                <div class="formula-box">det(A - λI) = (4-λ)(3-λ) - (2)(1)</div>
+                                <div class="formula-box">= λ² - 7λ + 10 = 0</div>
+                                <div class="formula-box">= (λ - 5)(λ - 2) = 0</div>
+                                <p style="margin-top: 12px;">Therefore, the eigenvalues are <strong>λ₁ = 5</strong> and <strong>λ₂ = 2</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Finding Eigenvalues & Eigenvectors -->
+            <section class="section" id="finding-eigen">
+                <h2 class="section-title">📘 Finding Eigenvalues & Eigenvectors</h2>
+                <div class="section-content">
+                    <p>Here is a systematic process to find eigenvalues and eigenvectors for a given matrix:</p>
+
+                    <div class="card">
+                        <h3 style="font-size: 20px; font-weight: 600; color: #4f46e5; margin-bottom: 16px;">Step-by-Step Process</h3>
+                        <ol class="numbered-list">
+                            <li><strong>Form (A - λI):</strong> Subtract λ from each diagonal entry of A</li>
+                            <li><strong>Compute det(A - λI) = 0:</strong> Find the characteristic polynomial</li>
+                            <li><strong>Solve for λ:</strong> Factor the polynomial to find eigenvalues</li>
+                            <li><strong>For each λ, solve (A - λI)v = 0:</strong> Find the null space to get eigenvectors</li>
+                        </ol>
+                    </div>
+
+                    <div class="collapsible open">
+                        <button class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <span>Complete Worked Example</span>
+                            <span class="collapsible-icon">▶</span>
+                        </button>
+                        <div class="collapsible-content" style="max-height: 2000px; opacity: 1;">
+                            <div class="collapsible-body">
+                                <p style="font-weight: 500; margin-bottom: 12px;">Find eigenvalues and eigenvectors of A = [3, 1; 0, 2]</p>
+                                
+                                <p style="font-weight: 500; color: #4f46e5; margin-top: 16px;">Step 1-3: Find Eigenvalues</p>
+                                <div class="formula-box">det(A - λI) = det([3-λ, 1; 0, 2-λ]) = (3-λ)(2-λ) = 0</div>
+                                <p style="margin-bottom: 16px;">Eigenvalues: λ₁ = 3, λ₂ = 2</p>
+
+                                <p style="font-weight: 500; color: #4f46e5; margin-top: 16px;">Step 4: Find Eigenvectors</p>
+                                <p style="color: #6b7280; font-size: 14px; margin-bottom: 8px;">For λ₁ = 3:</p>
+                                <div class="formula-box">(A - 3I)v = [0, 1; 0, -1][x; y] = 0 → y = 0</div>
+                                <p style="margin-bottom: 16px;">Eigenvector: v₁ = [1, 0]ᵀ</p>
+
+                                <p style="color: #6b7280; font-size: 14px; margin-bottom: 8px;">For λ₂ = 2:</p>
+                                <div class="formula-box">(A - 2I)v = [1, 1; 0, 0][x; y] = 0 → x + y = 0</div>
+                                <p>Eigenvector: v₂ = [1, -1]ᵀ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Properties & Theorems -->
+            <section class="section" id="properties">
+                <h2 class="section-title">📘 Properties & Theorems</h2>
+                <div class="section-content">
+                    <div class="formula-box theorem">
+                        <p class="formula-title">Theorem 1: Trace and Determinant</p>
+                        <p style="font-family: 'Poppins', sans-serif; font-size: 14px; color: rgba(31,41,55,0.8); margin-bottom: 8px;">For an n×n matrix A with eigenvalues λ₁, λ₂, ..., λₙ:</p>
+                        <p>tr(A) = λ₁ + λ₂ + ... + λₙ</p>
+                        <p>det(A) = λ₁ × λ₂ × ... × λₙ</p>
+                    </div>
+
+                    <div class="formula-box theorem">
+                        <p class="formula-title">Theorem 2: Distinct Eigenvalues</p>
+                        Eigenvectors corresponding to distinct eigenvalues are linearly independent.
+                    </div>
+
+                    <div class="formula-box theorem">
+                        <p class="formula-title">Theorem 3: Symmetric Matrices</p>
+                        <p>Real symmetric matrices have:</p>
+                        <p style="font-family: 'Poppins', sans-serif; font-size: 14px; color: rgba(31,41,55,0.8);">• All real eigenvalues</p>
+                        <p style="font-family: 'Poppins', sans-serif; font-size: 14px; color: rgba(31,41,55,0.8);">• Orthogonal eigenvectors</p>
+                    </div>
+
+                    <div class="collapsible">
+                        <button class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <span>More Properties</span>
+                            <span class="collapsible-icon">▶</span>
+                        </button>
+                        <div class="collapsible-content">
+                            <div class="collapsible-body">
+                                <ul class="styled-list">
+                                    <li>If A is triangular (upper or lower), the eigenvalues are the diagonal entries</li>
+                                    <li>The eigenvalues of A⁻¹ are the reciprocals of eigenvalues of A (1/λ)</li>
+                                    <li>The eigenvalues of Aᵏ are the k-th powers of eigenvalues of A (λᵏ)</li>
+                                    <li>Similar matrices have the same eigenvalues</li>
+                                    <li>The number of eigenvalues (counting multiplicity) equals the matrix dimension</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="definition-box">
+                        <p class="definition-term">
+                            <span class="definition-label">DEF</span>
+                            Algebraic vs Geometric Multiplicity
+                        </p>
+                        <p style="margin-bottom: 8px;"><strong>Algebraic multiplicity:</strong> The number of times λ appears as a root of the characteristic polynomial.</p>
+                        <p><strong>Geometric multiplicity:</strong> The dimension of the eigenspace (null space of A - λI).</p>
+                        <p style="color: #6b7280; font-size: 14px; margin-top: 8px;">Note: Geometric multiplicity ≤ Algebraic multiplicity (always)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Formulas Summary -->
+            <section class="section" id="formulas">
+                <h2 class="section-title">📘 Key Formulas Summary</h2>
+                <div class="section-content">
+                    <div class="formula-grid">
+                        <div class="formula-card">
+                            <p class="formula-card-title">Eigenvalue Equation</p>
+                            <p class="formula-card-content">Av = λv</p>
+                        </div>
+                        <div class="formula-card">
+                            <p class="formula-card-title">Characteristic Equation</p>
+                            <p class="formula-card-content">det(A - λI) = 0</p>
+                        </div>
+                        <div class="formula-card">
+                            <p class="formula-card-title">Trace Formula</p>
+                            <p class="formula-card-content">tr(A) = Σλᵢ</p>
+                        </div>
+                        <div class="formula-card">
+                            <p class="formula-card-title">Determinant Formula</p>
+                            <p class="formula-card-content">det(A) = Πλᵢ</p>
+                        </div>
+                        <div class="formula-card">
+                            <p class="formula-card-title">Inverse Eigenvalues</p>
+                            <p class="formula-card-content">λ(A⁻¹) = 1/λ(A)</p>
+                        </div>
+                        <div class="formula-card">
+                            <p class="formula-card-title">Power Eigenvalues</p>
+                            <p class="formula-card-content">λ(Aᵏ) = λᵏ</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Linear Algebra • Eigenvalues & Eigenvectors Theory</p>
+        </footer>
+    </main>
+
+    <script>
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            
+            menu.classList.toggle('open');
+            
+            if (menu.classList.contains('open')) {
+                menuIcon.style.display = 'none';
+                closeIcon.style.display = 'block';
+            } else {
+                menuIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            }
+        }
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                
+                // Close mobile menu if open
+                const menu = document.getElementById('mobileMenu');
+                if (menu.classList.contains('open')) {
+                    toggleMobileMenu();
+                }
+
+                // Update active nav item
+                updateActiveNav(sectionId);
+            }
+        }
+
+        // Toggle collapsible sections
+        function toggleCollapsible(button) {
+            const collapsible = button.parentElement;
+            collapsible.classList.toggle('open');
+        }
+
+        // Update active navigation item
+        function updateActiveNav(sectionId) {
+            // Desktop nav
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                if (item.onclick.toString().includes(sectionId)) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Mobile nav
+            document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                if (item.onclick.toString().includes(sectionId)) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Intersection Observer for active section tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateActiveNav(entry.target.id);
+                    }
+                });
+            }, { rootMargin: '-20% 0px -60% 0px' });
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>

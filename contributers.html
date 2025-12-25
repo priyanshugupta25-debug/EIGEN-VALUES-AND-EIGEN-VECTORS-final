@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Virtual Lab – Contributors</title>
+
+<!-- <style>
+:root {
+    --primary: #0ea5a4;
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --bg-light: #f8fafc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: var(--bg-light);
+    color: var(--text-dark);
+}
+
+/* ===== HEADER ===== */
+.header {
+    background: #ffffff;
+    padding: 18px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.header-icon {
+    width: 42px;
+    height: 42px;
+    background: #e6f8f6;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.header h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.header img {
+    height: 150px;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1150px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 36px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+}
+
+/* ===== TITLE ===== */
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.section-title span {
+    color: var(--primary);
+    font-size: 26px;
+}
+
+.section-title h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    margin-bottom: 28px;
+}
+
+/* ===== GRID ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 22px;
+}
+
+/* ===== CARD ===== */
+.card {
+    display: flex;
+    gap: 18px;
+    padding: 22px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+}
+
+/* Avatar */
+.avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #475569;
+    font-size: 20px;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Text */
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.role {
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.dept {
+    color: #374151;
+    margin-bottom: 10px;
+}
+
+.email {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+</style> -->
+</head>
+    <header>
+        <div class="container header-container">
+            <div class="logo-section">
+                <!-- PCOE Logo -->
+                <div class="pcce-logo-container">
+                    <!-- Using GitHub raw URL with fallback -->
+                    <img src="https://raw.githubusercontent.com/dineshkute90/virtual_lab_LAUC/main/pccoe.png" 
+                         alt="PCOE Logo" 
+                         class="pcce-logo-img"
+                         id="pcceLogo"
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60/2c3e50/ffffff?text=PCOE';">
+                    <div class="pcce-logo-text">
+                        <div class="main">APPLIED SCIENCES & HUMANITIES</div>
+                        <div class="sub">Pimpri Chinchwad College of Engineering</div>
+                    </div>
+                </div>
+                
+                <!-- Virtual Labs Logo -->
+                <div class="virtual-labs-logo">
+                    <i class="fas fa-flask"></i>
+                    <h1>Virtual <span>Labs</span></h1>
+                </div>
+            </div>
+            
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span>Welcome, Student</span>
+            </div>
+        </div>
+    </header>
+<body>
+    <link rel='stylesheet' href='contributers.css'>
+
+<!-- MAIN -->
+<div class="container">
+
+    <div class="section-title">
+        <span>👥</span>
+        <h2>Contributors</h2>
+    </div>
+<a href="laucp.html" class="back-btn">
+  <i class="fas fa-arrow-left"></i> Back
+</a>
+
+    <p class="subtitle">
+        This virtual lab was developed by the following team members.
+    </p>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="avatar">
+                <img src="dinesh-kute sir.jpg" >
+            </div>
+            <div>
+                <h3>Dinesh Kute</h3>
+                <div class="role">Project Guide</div>
+                <H4>Department of Mathematics</H4>
+                <div class="email">✉ dinesh.kute@pccoepune.org</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="avatar">
+                <img src="CHINMAY.png"style='object-fit: contain'>
+            </div>
+            <div>
+                <h3>Chinmay Mulik</h3>
+                <div class="role">DEVELOPER</div>
+                <h4>PRN- 125B1F207<h4>
+                <div class="dept">DEPARTMENT OF INFORMATION TECHNOLOGY</div>
+                <div class="email">✉ chinmay.mulik25@pccoepune.org</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="avatar">
+                <img src="priyanshu g.jpg">
+            </div>
+            <div>
+                <h3>Priyanshu Gupta</h3>
+                <div class="role">DEVELOPER </div>
+                 <h4>PRN- 125B1F187</h4>
+                <div class="dept"><h4>DEPARTMENT OF INFORMATION TECHNOLOGY</h4></div>
+                <div class="email">✉ priyanshu.gupta25@pccoepune.org</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="avatar">
+                <img src="prathmesh d.png">
+            </div>
+            <div>
+                <h3>Prathmesh Dannak</h3>
+                <div class="role">MANAUL CREATOR</div>
+                 <h4>PRN- 125B1F209</h4>
+                <div class="dept"><h4>DEPARTMENT OF INFORMATION TECHNOLOGY</h4></div>
+                <div class="email">✉ prathmesh.dannak25@pccoepune.org</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="avatar"><img src="ansh.jpg"></div>
+            <div>
+                <h3>Ansh Bhajipale</h3>
+                <div class="role">DEVELOPER</div>
+                 <h4>PRN- 125B1F190</h4>
+                <div class="dept"><h4>DEPARTMENT OF INFORMATION TECHNOLOGY</div>
+                <div class="email">✉ ansh.bhajipale25@pccoepune.org</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

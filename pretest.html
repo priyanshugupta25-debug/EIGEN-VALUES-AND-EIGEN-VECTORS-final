@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Eigen Explorer | Pre-Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+  background:linear-gradient(135deg,#e0f2fe,#fdf2f8);
+  color:#1f2937;
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 30px;
+  background:linear-gradient(90deg,#6366f1,#06b6d4);
+  color:#fff;
+  box-shadow:0 6px 15px rgba(0,0,0,.15);
+}
+
+.header h1{font-size:24px;font-weight:600}
+
+/* MAIN */
+.container{
+  max-width:800px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.section-title{
+  text-align:center;
+  font-size:32px;
+  font-weight:700;
+  color:#4f46e5;
+}
+
+.subtitle{
+  text-align:center;
+  margin-bottom:30px;
+  color:#475569;
+}
+
+/* PROGRESS */
+.progress{
+  height:10px;
+  background:#e5e7eb;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:30px;
+}
+.progress div{
+  height:100%;
+  width:10%;
+  background:linear-gradient(90deg,#6366f1,#22d3ee,#ec4899);
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
+
+.card h3{margin-bottom:20px}
+
+/* OPTIONS */
+button{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border:none;
+  border-radius:14px;
+  background:#f8fafc;
+  cursor:pointer;
+  font-size:15px;
+  transition:.25s;
+}
+button:hover{
+  background:linear-gradient(90deg,#6366f1,#06b6d4);
+  color:#fff;
+}
+
+.result{text-align:center;font-size:22px;font-weight:600}
+.back-btn{
+  background:rgba(255,255,255,0.15);
+  border:none;
+  color:white;
+  padding:8px 14px;
+  border-radius:10px;
+  font-size:14px;
+  cursor:pointer;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.back-btn:hover{
+  background:white;
+  color:#4f46e5;
+}
+/* ===== HEADER BASE ===== */
+header {
+    background: linear-gradient(90deg, #1f2937, #273549, #1f2937);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    width: 100%;
+}
+
+/* ===== CONTAINER ===== */
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ===== LEFT LOGO SECTION ===== */
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+/* ===== PCOE LOGO ===== */
+.pcce-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.pcce-logo-img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    background: #ffffff;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+/* TEXT BESIDE PCOE LOGO */
+.pcce-logo-text .main {
+    font-size: 14px;
+    font-weight: 700;
+    color: #e5e7eb;
+    letter-spacing: 0.5px;
+}
+
+.pcce-logo-text .sub {
+    font-size: 12px;
+    font-weight: 400;
+    color: #9ca3af;
+    margin-top: 2px;
+}
+
+/* ===== DIVIDER LINE ===== */
+.logo-section::after {
+    content: "";
+    height: 42px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin-left: 20px;
+}
+
+/* ===== VIRTUAL LABS LOGO ===== */
+.virtual-labs-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e5e7eb;
+}
+
+.virtual-labs-logo i {
+    font-size: 26px;
+    color: #38bdf8;
+}
+
+.virtual-labs-logo h1 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.virtual-labs-logo h1 span {
+    color: #38bdf8;
+}
+
+/* ===== USER INFO ===== */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #e5e7eb;
+}
+
+.user-info i {
+    font-size: 22px;
+    color: #38bdf8;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .pcce-logo-text {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .virtual-labs-logo h1 {
+        font-size: 18px;
+    }
+
+    .user-info span {
+        display: none;
+    }
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  margin-bottom: 25px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0ea5a4, #6366f1);
+  border-radius: 30px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  transition: all 0.3s ease;
+}
+
+.back-btn i {
+  font-size: 14px;
+}
+
+.back-btn:hover {
+  transform: translateX(-4px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+}
+
+</style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo-section">
+                <!-- PCOE Logo -->
+                <div class="pcce-logo-container">
+                    <!-- Using GitHub raw URL with fallback -->
+                    <img src="https://raw.githubusercontent.com/dineshkute90/virtual_lab_LAUC/main/pccoe.png" 
+                         alt="PCOE Logo" 
+                         class="pcce-logo-img"
+                         id="pcceLogo"
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/60x60/2c3e50/ffffff?text=PCOE';">
+                    <div class="pcce-logo-text">
+                        <div class="main">APPLIED SCIENCES & HUMANITIES</div>
+                        <div class="sub">Pimpri Chinchwad College of Engineering</div>
+                    </div>
+                </div>
+                
+                <!-- Virtual Labs Logo -->
+                <div class="virtual-labs-logo">
+                    <i class="fas fa-flask"></i>
+                    <h1>Virtual <span>Labs</span></h1>
+                </div>
+            </div>
+            
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span>Welcome, Student</span>
+            </div>
+        </div>
+    </header>
+
+<main class="container">
+  <a href="laucp.html" class="back-btn">
+  <i class="fas fa-arrow-left"></i> Back
+</a>
+
+  <div class="section-title">Eigenvalues & Eigenvectors</div>
+  <p class="subtitle">Before using the calculator</p>
+
+  <div class="progress"><div id="bar"></div></div>
+
+  <div class="card" id="quiz"></div>
+</main>
+
+<script>
+const questions=[
+ {q:"Eigenvalues belong to which subject?",o:["Linear Algebra","Calculus","Statistics","Geometry"],a:0},
+ {q:"Eigenvalues are defined for?",o:["Square matrix","Rectangular","Row","Column"],a:0},
+ {q:"Eigenvector is always?",o:["Non-zero","Zero","Scalar","Row"],a:0},
+ {q:"Eigenvalues help study?",o:["Stability","Sorting","Searching","Hashing"],a:0},
+ {q:"Eigenvalue represents?",o:["Scaling factor","Row","Column","Determinant"],a:0},
+
+ {q:"No. of eigenvalues of 2×2 matrix?",o:["2","1","4","∞"],a:0},
+ {q:"Eigenvalues of I₂?",o:["1,1","0,0","2,2","−1,−1"],a:0},
+ {q:"Eigenvalues of diagonal matrix?",o:["Diagonal elements","Row sum","Zero","Random"],a:0},
+ {q:"If λ=0, matrix is?",o:["Singular","Identity","Orthogonal","Diagonal"],a:0},
+ {q:"Eigenvalues of n×n matrix?",o:["n","n²","2n","Depends"],a:0}
+];
+
+let i=0,score=0;
+const quiz=document.getElementById("quiz"),bar=document.getElementById("bar");
+
+function load(){
+ const x=questions[i];
+ quiz.innerHTML=`<h3>${i+1}. ${x.q}</h3>`+
+ x.o.map((op,j)=>`<button onclick="ans(${j})">${op}</button>`).join("");
+ bar.style.width=((i+1)/10*100)+"%";
+}
+function ans(j){
+ if(j===questions[i].a) score++;
+ i++;
+ i<10?load():quiz.innerHTML=`<div class="result">Pre-Test Completed<br>Score: ${score}/10</div>`;
+}
+load();
+</script>
+
+</body>
+</html>

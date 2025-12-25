@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0f2fe, #fdf2f8);
+    font-family: 'Poppins', sans-serif;
+    color: #1f2937;
+}
+
+
+/* MAIN WRAPPER */
+.wrapper {
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.6s ease;
+}
+
+/* TOP GRADIENT BAR */
+.wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #6366f1, #22d3ee, #ec4899);
+}
+
+/* FADE ANIMATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* HEADING */
+.section-heading h1 {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    color: #4f46e5;
+}
+
+.section-heading p {
+    text-align: center;
+    color: #475569;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.divider {
+    width: 60px;
+    height: 5px;
+    background: linear-gradient(90deg, #6366f1, #06b6d4);
+    border-radius: 10px;
+    margin: 20px auto 35px;
+}
+
+/* REFERENCES LIST */
+.references-list {
+    list-style: none;
+}
+
+/* EACH REFERENCE CARD */
+.references-list li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #f8fafc;
+    padding: 18px 20px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #e5e7eb;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    cursor: default;
+}
+
+/* HOVER EFFECT */
+.references-list li:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 35px rgba(0,0,0,0.15);
+    border-color: #6366f1;
+}
+
+/* ICON */
+.ref-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+/* TEXT */
+.ref-text {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.5;
+}
+
+.ref-text span {
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(90deg, #6366f1, #06b6d4);
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-right: 8px;
+}
+
+.ref-text em {
+    color: #4f46e5;
+    font-weight: 600;
+}
+
+/* NOTE */
+.note {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    .wrapper {
+        padding: 28px;
+    }
+
+    .section-heading h1 {
+        font-size: 26px;
+    }
+}
+/* Header Styles */
+header {
+    background: linear-gradient(135deg, #2c3e50, #1a2530);
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.pcce-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-right: 25px;
+    border-right: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.pcce-logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: white;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pcce-logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.pcce-logo-text .main {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.pcce-logo-text .sub {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.virtual-labs-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.virtual-labs-logo i {
+    font-size: 32px;
+    color: #3498db;
+}
+
+.virtual-labs-logo h1 {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.virtual-labs-logo span {
+    color: #3498db;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info i {
+    font-size: 20px;
+    color: #3498db;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .pcce-logo-text {
+        display: none;
+    }
+}
+.page-content {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  margin-bottom: 25px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0ea5a4, #6366f1);
+  border-radius: 30px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  transition: all 0.3s ease;
+}
+
+.back-btn i {
+  font-size: 14px;
+}
+
+.back-btn:hover {
+  transform: translateX(-4px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+}
