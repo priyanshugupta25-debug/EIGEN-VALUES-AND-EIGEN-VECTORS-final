@@ -297,35 +297,35 @@ header {
 </main>
 <script>
 const questions=[
- {q:"Eigenvalues belong to which subject?",o:["Linear Algebra","Calculus","Statistics","Geometry"],a:0,
-  exp:"Eigenvalues are a core concept of Linear Algebra used in matrix transformations."},
+ {q:"det([2 3;4 6]) = ?",o:["0","12","6","-6"],a:0,
+  exp:"Rows are dependent ⇒ determinant = 0."},
 
- {q:"Eigenvalues are defined for?",o:["Square matrix","Rectangular","Row","Column"],a:0,
-  exp:"Eigenvalues are defined only for square matrices because determinant is required."},
+ {q:"Rank of matrix [1 2 3;2 4 6;1 1 1] is?",o:["1","2","3","0"],a:1,
+  exp:"Second row is multiple of first ⇒ rank = 2."},
 
- {q:"Eigenvector is always?",o:["Non-zero","Zero","Scalar","Row"],a:0,
-  exp:"Eigenvectors must be non-zero vectors; zero vector is not allowed."},
+ {q:"If det(A)=0, then matrix A is?",o:["Invertible","Singular","Orthogonal","Identity"],a:1,
+  exp:"Zero determinant ⇒ singular matrix."},
 
- {q:"Eigenvalues help study?",o:["Stability","Sorting","Searching","Hashing"],a:0,
-  exp:"Eigenvalues are used to analyze system stability in engineering and mathematics."},
+ {q:"Trace of matrix with eigenvalues 2,3,5 is?",o:["10","6","15","5"],a:0,
+  exp:"Trace = sum of eigenvalues = 10."},
 
- {q:"Eigenvalue represents?",o:["Scaling factor","Row","Column","Determinant"],a:0,
-  exp:"Eigenvalue represents how much an eigenvector is stretched or compressed."},
+ {q:"Determinant if eigenvalues are 2,3,4?",o:["9","24","12","6"],a:1,
+  exp:"Determinant = product = 24."},
 
- {q:"No. of eigenvalues of 2×2 matrix?",o:["2","1","4","∞"],a:0,
-  exp:"A 2×2 matrix has exactly 2 eigenvalues (including repeated ones)."},
+ {q:"If A² = A, then A is?",o:["Idempotent","Nilpotent","Orthogonal","Diagonal"],a:0,
+  exp:"A² = A defines idempotent matrix."},
 
- {q:"Eigenvalues of I₂?",o:["1,1","0,0","2,2","−1,−1"],a:0,
-  exp:"Identity matrix always has eigenvalues equal to 1."},
+ {q:"If A² = 0, then A is?",o:["Identity","Nilpotent","Scalar","Orthogonal"],a:1,
+  exp:"A² = 0 ⇒ nilpotent matrix."},
 
- {q:"Eigenvalues of diagonal matrix?",o:["Diagonal elements","Row sum","Zero","Random"],a:0,
-  exp:"Eigenvalues of a diagonal matrix are simply its diagonal elements."},
+ {q:"Eigenvalues of diagonal matrix are?",o:["Diagonal elements","Row sum","Zero","Random"],a:0,
+  exp:"Eigenvalues are the diagonal entries."},
 
- {q:"If λ=0, matrix is?",o:["Singular","Identity","Orthogonal","Diagonal"],a:0,
-  exp:"If any eigenvalue is zero, determinant becomes zero, so matrix is singular."},
+ {q:"If A is orthogonal, then?",o:["A⁻¹ = Aᵀ","A = 0","A² = 0","det(A)=0"],a:0,
+  exp:"Orthogonal matrices satisfy A⁻¹ = Aᵀ."},
 
- {q:"Eigenvalues of n×n matrix?",o:["n","n²","2n","Depends"],a:0,
-  exp:"An n×n matrix has exactly n eigenvalues."}
+ {q:"Number of eigenvalues of 3×3 matrix?",o:["3","1","9","Depends"],a:0,
+  exp:"Equal to order of matrix ⇒ 3 eigenvalues."}
 ];
 
 let i=0,score=0;
@@ -350,7 +350,6 @@ function ans(j){
         i<10 ? load() : showResult();
     },500);
  } else {
-    // Show correct answer + explanation
     quiz.innerHTML = `
       <h3>${i+1}. ${questions[i].q}</h3>
       <p style="color:red;font-weight:600;">Wrong Answer ❌</p>
